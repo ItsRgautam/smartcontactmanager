@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+
+<title>User Dashboard</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+	<section class="section about-section grey-bg" id="about" style="background-color: white;">
+		<div th:if="${contact}" class="container" style="background-color: white;">
+			<div class="row align-items-center flex-row-reverse">
+				<div class="col-lg-6">
+					<div class="about-text go-to">
+						<h3 class="dark-color">
+							<span th:text="${contact.name}"></span> (<span
+								th:text="${contact.secondName}"></span>)
+						</h3>
+						<h6 class="theme-color lead">
+							<span Style="font-size:30px;" th:text="${contact.phone}" ></span>
+						</h6>
+
+						<p>
+							<span Style="color: #20247b; font-size: 20px; font-weight: 500;">Email:</span>
+							<span th:text="${contact.email}"></span>
+						</p>
+
+						<p>
+							<span Style="color: #20247b; font-size: 20px; font-weight: 500;">Work:
+							</span><span th:text="${contact.work}"></span>
+						</p>
+
+						<p>
+							<span Style="color: #20247b; font-size: 20px; font-weight: 500;">About:</span>
+							<span th:text="${contact.description}"></span>.
+						</p>
+
+					</div>
+					
+				
+					
+					<a th:href="@{'/user/favourite/'+${contact.cId}}">
+					<img th:src="${contact.favourite} ? '/images/favcontact.png':'/images/favouritecontact.png'" alt="" width="60" height="60">
+					 
+				 </a>
+
+					<a th:href="@{'/user/update/'+${contact.cId}}"
+						class="btn btn-primary btn-sm">UPDATE</a> 
+						
+						<a th:href="@{'/user/delete/'+${contact.cId}}"
+						class="btn btn-danger btn-sm">DELETE</a>
+
+
+
+				</div>
+				<div class="col-lg-6">
+					<div class="about-avatar">
+						<img style="width: 300px; height: 300px;"
+							th:src="@{'/images/'+${contact.image}}" title="" alt="">
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+		<h1 th:unless="${contact}" style="background: red;">You dont have
+			access to this contact</h1>
+	</section>
+
+</body>
+</html>

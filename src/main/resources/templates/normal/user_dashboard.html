@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>User Dashboard</title>
+
+</head>
+<body>
+
+	<section>
+		<h1 style="color: #59207b; text-align: center">User Dashboard</h1>
+
+		<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+			<div class="card p-4">
+				<div
+					class=" image d-flex flex-column justify-content-center align-items-center">
+					<button class="btn btn-secondary">
+						<img src="https://i.imgur.com/wvxPV9S.png" height="100"
+							width="100" />
+					</button>
+					<span class="name mt-3" th:text="${user.name}" Style="color: #20247b; font-size: 25px; font-weight: 500;"></span> 
+					<span class="idd"  th:text="${user.email}" Style="color: #20247b; font-size: 22px; font-weight: 500;"></span>
+		
+					<div
+						class="d-flex flex-row justify-content-center align-items-center mt-3">
+						<span class="number" th:text="${user.contactList.size}+' Contacts'" Style="color: #20247b; font-size: 20px; font-weight: 500;" ></span>
+					</div>
+					
+					<div class="text mt-3">
+						<span th:text="${user.about}">
+						</span>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>
