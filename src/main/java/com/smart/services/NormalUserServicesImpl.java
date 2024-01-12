@@ -1,6 +1,7 @@
 package com.smart.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,7 +9,12 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +39,10 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import javax.imageio.IIOException;
+
 @Service
+@Slf4j
 public class NormalUserServicesImpl implements NormalUserServices {
 
 	@Autowired
@@ -50,8 +59,7 @@ public class NormalUserServicesImpl implements NormalUserServices {
 
 	@Autowired
 	MyComparator myComparator;
-	
-	
+
 	public String getUsername(HttpServletRequest request) {
 		
 		System.out.println("inside get username method");
@@ -321,9 +329,6 @@ public class NormalUserServicesImpl implements NormalUserServices {
 		       HttpSession session=request.getSession();
 		  
 		try {
-			
-			System.out.println("new password===----------------------------------" + newpassword);
-			System.out.println("old password===----------------------------------" + oldpassword);
 			if (newpassword.length() < 6)
 				throw new Exception("New password length should be more than 5");
 
@@ -331,7 +336,6 @@ public class NormalUserServicesImpl implements NormalUserServices {
 				throw new Exception("Enter a different New Password");
 			User user = userRepository.getUserByUserName(getUsername(request));
 			String original = user.getPassword();
-			System.out.println("original==============================================================" + original);
 
 			if (this.passwordEncoder.matches(oldpassword, original)) {
 				user.setPassword(passwordEncoder.encode(newpassword));
@@ -349,4 +353,36 @@ public class NormalUserServicesImpl implements NormalUserServices {
 		return "normal/settings";
 	}
 
+	@Override
+	public String deleteUser(Model model, HttpServletRequest request, HttpServletResponse response)   {
+		try{
+
+			  User user = userRepository.getUserByUserName(getUsername(request));
+			  List<Contact> contactlist=user.getContactList();
+			  if(contactlist!=null)
+			   {  for (Contact c: contactlist)
+			      {
+					   if (! c.getName().equals("defaultprofile.png"))
+					   {
+						File deleteFile = new ClassPathResource("static/images").getFile();
+						File file1 = new File(deleteFile, c.getImage());
+						file1.delete();
+
+					   }
+				  }
+			   }
+			Cookie cookies = new Cookie("token", null);
+
+			cookies.setMaxAge(0);
+			cookies.setPath("/");
+
+			response.addCookie(cookies);
+			userRepository.delete(user);
+
+		}
+		catch (Exception e){
+
+		}
+
+	return "redirect:/home/";}
 }

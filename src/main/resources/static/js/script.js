@@ -36,7 +36,7 @@ const search = () => {
 		console.log(query);
 		
 		
-		let url=`http://localhost:8081/user/search/${query}`;
+		let url=`https://smartcontactmanager-production-3876.up.railway.app/user/search/${query}`;
 		
 		fetch(url).then((response) => {
 			return response.json();
@@ -61,3 +61,11 @@ const search = () => {
 	}
 };
 
+const confirmDelete = () =>{
+	console.log("inside confirmDelete function");
+	let deleteUser=confirm("Do you really want to Delete Account? All your Contact will be Deleted ");
+	if(deleteUser){
+		window.location.href="https://smartcontactmanager-production-3876.up.railway.app/user/deleteuser"
+			}
+
+};

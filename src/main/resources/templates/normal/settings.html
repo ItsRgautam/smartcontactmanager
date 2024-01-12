@@ -24,20 +24,26 @@
 	
 	<form th:action="@{/user/changepass}" method="post" > 
 	
-	<label for="oldpass">Current Password</label>
+	<label for="oldpassword">Current Password</label>
 	<input name="oldpassword" type="password" class="form-control" required />
 	<br />
-		<label for="newpass">New Password</label>
+		<label for="newpassword">New Password</label>
 	<input name="newpassword" type="password" class="form-control"  required/>
 	<br />
 	<div class="container text-center">
-         <button  type="submit" class="btn bg-primary text-white"> Change </button>
+         <button  type="submit" class="btn btn-primary btn-sm"> Change </button>
          
         
                 
         </div>
 	</form>
-	
+
+		<br /> <br />
+
+		<h3> Delete Account</h3>
+		<div class="container text-center">
+			<button onclick="confirmDelete()" class="btn btn-danger btn-sm" > DELETE</button>
+		</div>
 	</div>
 	
 	</section>

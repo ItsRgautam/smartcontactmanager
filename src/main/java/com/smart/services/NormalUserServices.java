@@ -3,6 +3,7 @@ package com.smart.services;
 import java.security.Principal;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,5 +39,7 @@ public interface NormalUserServices {
 	public String favourite(int cid);
 
 	public String favouriteContacts(Model model, HttpServletRequest request);
+
+	public String deleteUser(Model model, HttpServletRequest request, HttpServletResponse response);
 
 }
