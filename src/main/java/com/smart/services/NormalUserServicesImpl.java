@@ -221,6 +221,7 @@ public class NormalUserServicesImpl implements NormalUserServices {
 			if (!(contact.getImage().equals("defaultprofile.png"))) {
 
 				try {
+					System.out.println("inside if condition ");
 					File deleteFile = new ClassPathResource("static/images").getFile();
 					File file1 = new File(deleteFile, contact.getImage());
 					file1.delete();
@@ -362,8 +363,9 @@ public class NormalUserServicesImpl implements NormalUserServices {
 			  if(contactlist!=null)
 			   {  for (Contact c: contactlist)
 			      {
-					   if (! c.getName().equals("defaultprofile.png"))
+					   if ( !(c.getImage().equals("defaultprofile.png")))
 					   {
+						   System.out.println("inside get if condition");
 						File deleteFile = new ClassPathResource("static/images").getFile();
 						File file1 = new File(deleteFile, c.getImage());
 						file1.delete();

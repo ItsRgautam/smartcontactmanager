@@ -67,7 +67,7 @@ public class VerificationServicesImpl implements VerificationServices {
 
 			System.out.println(e.getMessage());
 
-			return "/forgetpass";
+			return "forgetpass";
 		}
 
 		return "changepassword";
